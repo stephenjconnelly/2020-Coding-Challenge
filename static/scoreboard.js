@@ -1,7 +1,7 @@
-function display_scoreboard(scoreboard){
+function display_scoreboard(scoreboard){//renders HTMl for each team
   $("#teams").empty();
   $.each(scoreboard, function(index, team){
-    addTeamView(team.id, team.name, team.score);
+    addTeamView(team.id, team.name, team.score);//creates HTML elements for each team's row
   });
 }
 
@@ -23,6 +23,10 @@ function addTeamView(id, name, score){
   $("#teams").append(team_template);
 }
 
+/*
+AJAX POST request to the '/increase_score' route with the team's ID, which 
+updates the team's score and returns the updated scoreboard JSON data.
+*/
 function increase_score(id){
   var team_id = {"id": id}
   $.ajax({
@@ -32,7 +36,7 @@ function increase_score(id){
     contentType: "application/json; charset=utf-8",
     data : JSON.stringify(team_id),
     success: function(result){
-        
+      display_scoreboard(result.scoreboard);
     },
     error: function(request, status, error){
         console.log("Error");
@@ -43,6 +47,27 @@ function increase_score(id){
   });
 }
 
+// function update_scoreboard(){
+//   $.ajax({
+//     type: "GET",
+//     url: "/get_scorebaord",
+//     dataType: "json",
+//     contentType: "application/json; charset=utf-8",
+//     success: function(result){
+//       scoreboard = result.scoreboard;
+// //sort_scoreboard();
+//       display_scoreboard(scoreboard);
+//     },
+//     error: function(request, status, error){
+//       console.log("Error");
+//       console.log(request)
+//       console.log(status)
+//       console.log(error)
+//     }
+//   });
+// }
+
 $(document).ready(function(){
-  display_scoreboard(scoreboard);
+  display_scoreboard;
 })
+
