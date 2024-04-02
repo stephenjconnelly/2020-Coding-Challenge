@@ -5,8 +5,6 @@
     <script type="text/javascript" src="{{ url_for('static', filename = 'scoreboard.js') }}"></script>
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
-     <!--sets the scoreboard variable by converting the scoreboard Python 
-    list to JSON using the tojson filter provided by Flask.--> 
     <script>
       var scoreboard = {{scoreboard|tojson}} 
     </script>

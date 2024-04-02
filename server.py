@@ -35,27 +35,26 @@ scoreboard = [
     },
 ]
 
-
+# 
 @app.route('/')
 def show_scoreboard():
     return render_template('scoreboard.html', scoreboard = scoreboard) 
 
-@app.route('/increase_score', methods=['GET', 'POST'])#gets JSON request to increase score
+@app.route('/increase_score', methods=['GET', 'POST'])
 def increase_score():
     global scoreboard
 
-    json_data = request.get_json()#requests data from json
-    team_id = json_data["id"]#team_id variable set to id used in request
+    json_data = request.get_json()   
+    team_id = json_data["id"]  
     
     for team in scoreboard:
-        if team["id"] == team_id:#iterates through scoreboard 
-            team["score"] += 1 #increases score by 1 
-    scoreboard = sorted(scoreboard, key=lambda k: k['score'], reverse=True)
-    return jsonify(scoreboard)
+        if team["id"] == team_id:
+            team["score"] += 1
+            
+    # sort the list after additions.
+    scoreboard = sorted(scoreboard, key=lambda x: x['score'], reverse=True)
+    return jsonify(scoreboard=scoreboard)
+
 
 if __name__ == '__main__':
    app.run(debug = True)
-
-
-
-
